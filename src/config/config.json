@@ -1,0 +1,7 @@
+{
+  "ASSET_PATH": "/public",
+  "PLACEHOLDER": "react-app-placeholder",
+  "PRELOADED_STATE": "__PRELOADED_STATE__",
+  "PRELOADED_STATE_PLACEHOLDER_ID": "redux-preloaded-state-script-id",
+  "MTG_APP_COOKIE_NAME": "MTGAPPTOKEN"
+}

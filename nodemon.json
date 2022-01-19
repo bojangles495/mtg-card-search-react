@@ -1,0 +1,18 @@
+{
+    "delay": "2000",
+    "verbose": true,
+    "ignore": [
+      "build",
+      "public"
+    ],
+    "watch": [
+      "src/server/**/*.{ts,tsx}",
+      "webpack"
+    ],
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "ext": "js json ts tsx",
+    "exec": "TS_NODE_FILES=true ts-node -- ./src/server"
+  }
+  

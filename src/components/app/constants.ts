@@ -1,0 +1,8 @@
+export const NAME: string = 'mtg-search-app'
+export const CLEAR_GRAPHQL_CARD_SEARCH_RESULT_LIST = 'mtg-search-app.CLEAR_GRAPHQL_CARD_SEARCH_RESULT_LIST'
+export const GET_APP_CONTENT_STARTED = 'mtg-search-app.GET_APP_CONTENT_STARTED'
+export const GET_APP_CONTENT_SUCCESS = 'mtg-search-app.GET_APP_CONTENT_SUCCESS'
+export const GET_APP_CONTENT_FAILURE = 'mtg-search-app.GET_APP_CONTENT_FAILURE'
+export const SET_FORM_CARD_NAME = 'mtg-search-app.SET_FORM_CARD_NAME'
+export const SET_GRAPHQL_CARD_SEARCH_RESULT_LIST = 'mtg-search-app.SET_GRAPHQL_CARD_SEARCH_RESULT_LIST'
+export const LOCATION_CHANGE = 'mtg-search-app.LOCATION_CHANGE'
