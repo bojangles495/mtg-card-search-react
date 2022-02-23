@@ -12,6 +12,7 @@ const config = {
   PORT,
   MTGSEARCH_BASE_URL: DEV,
   MTG_GRAPHQL_BASE_URL: 'http://localhost:7846',
+  MTG_USER_INFO_BASE_URL: 'http://localhost:7888',
   ASSET_PATH: env_config.ASSET_PATH || '/public',
   IMAGE_FOLDER: path.resolve(__dirname, '..', '..', 'src', 'images'),
   PUBLIC_FOLDER: path.resolve(__dirname, '..', '..', 'public'),

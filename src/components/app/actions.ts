@@ -1,6 +1,6 @@
 import urlTemplate from 'url-template';
-import { getMtgGraphqlUrl, getRequestInit } from '../../services'
-import { Action, CardSearchGraphQLResponse, CardContainer } from './types'
+import { getMtgGraphqlBaseUrl, getMtgUserInfoBaseUrl, getRequestInit } from '../../services'
+import { Action, CardSearchGraphQLResponse, CardSearchUserCatalogResponse, CardContainer, UserCardRecord } from './types'
 import { Dispatch } from 'redux'
 import {
   CLEAR_GRAPHQL_CARD_SEARCH_RESULT_LIST
@@ -8,7 +8,8 @@ import {
 , GET_APP_CONTENT_SUCCESS
 , GET_APP_CONTENT_FAILURE
 , SET_FORM_CARD_NAME
-, SET_GRAPHQL_CARD_SEARCH_RESULT_LIST} from './constants'
+, SET_GRAPHQL_CARD_SEARCH_RESULT_LIST
+, SET_USER_CATALOG_RECORDS} from './constants'
 
 export const getAppContentStarted = (): Action => ({
     type: GET_APP_CONTENT_STARTED
@@ -21,7 +22,6 @@ export const getAppContentSuccess = (): Action => ({
 export const getAppContentFailure = (): Action => ({
   type: GET_APP_CONTENT_FAILURE
 })
-
 
 export const setFormCardName = (formValue: string): Action => ({
   type: SET_FORM_CARD_NAME
@@ -36,6 +36,11 @@ export const setGraphQLCardSearchResult = (cardSearchResults: CardContainer[]): 
 , payload: { value: cardSearchResults }
 })
 
+export const setUserCatalogRecordsResult = (userCatalogResults: UserCardRecord[]): Action => ({
+  type: SET_USER_CATALOG_RECORDS
+, payload: { value: userCatalogResults }
+})
+
 const getHeaders = (): Headers => {
     const headers = new Headers()
     headers.append('Accept', 'application/json')
@@ -44,10 +49,10 @@ const getHeaders = (): Headers => {
     return headers
 }
 
-export const cardSearch = async (query: string): Promise<Response> => {
+export const cardSearchQraphql = async (query: string): Promise<Response> => {
   const getGraphqlTemplate = urlTemplate.parse('graphql')
   const relativeURL = getGraphqlTemplate.expand({})
-  const baseURL = getMtgGraphqlUrl()
+  const baseURL = getMtgGraphqlBaseUrl()
 
   const input = new URL(relativeURL, baseURL).href
 
@@ -60,11 +65,32 @@ export const cardSearch = async (query: string): Promise<Response> => {
   return response
 }
 
-export const queryCardSearch = (dispatch: Dispatch) => async (query: string) => {
+export const cardSearchUserCatalog = async (cardName: string): Promise<Response> => {
+  const getUserInfoTemplate = urlTemplate.parse('card-search/userCardsByName{?cardName}')
+  const relativeURL = getUserInfoTemplate.expand({ cardName })
+  const baseURL = getMtgUserInfoBaseUrl()
+
+  const input = new URL(relativeURL, baseURL).href
+
+  const init = getRequestInit('GET', getHeaders())
+
+  const response = await fetch(input, init)
+
+  return response
+}
+
+export const queryCardSearch = (dispatch: Dispatch) => async (query: string, cardName: string) => {
   dispatch(getAppContentStarted())
 
   try {
-    const getAppContentResponse: Response = await cardSearch(query)
+    const getAppContentResponse: Response = await cardSearchQraphql(query)
+    const getAppUserInfoResponse: Response = await cardSearchUserCatalog(cardName)
+
+    if(getAppUserInfoResponse.status === 200) {
+      const getUserCatalogBody: CardSearchUserCatalogResponse = await getAppUserInfoResponse.json()
+
+      dispatch(setUserCatalogRecordsResult(getUserCatalogBody._embedded.userRecords))
+    }
 
     if (getAppContentResponse.status === 200) {
       const getAppContentData: CardSearchGraphQLResponse = await getAppContentResponse.json()

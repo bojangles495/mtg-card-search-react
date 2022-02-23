@@ -10,7 +10,7 @@ import webpack from 'webpack'
 import ssr from './render/ssr'
 
 import {
-  getMtgGraphqlUrl
+  getMtgGraphqlBaseUrl
  } from '../services'
 
 const {
@@ -34,7 +34,7 @@ export default () => {
   app.use(cookieParser())
   app.use(PUBLIC_IMAGE_PATH, staticImageFolder)
 
-  // const mtgCardSearchUrl = getMtgGraphqlUrl()
+  // const mtgCardSearchUrl = getMtgGraphqlBaseUrl()
   // app.use('/card-search', proxy(mtgCardSearchUrl, {
   //   proxyReqPathResolver: (req: express.Request) => {
   //     return new Promise((resolve, reject) => {
