@@ -18,6 +18,7 @@ export const makeConnector = <S>(mapStateToSlice: (state: S) => ({ app: State })
     const props = { loading: slice.app.loading
       , form: slice.app.form
       , cardSearchResult: slice.app.cardSearchResult
+      , userCatalogResult: slice.app.userCatalogResult
       }
 
     return props

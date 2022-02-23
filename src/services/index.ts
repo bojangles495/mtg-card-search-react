@@ -1,5 +1,6 @@
 const mtgJsonUrl: string = require('../config/index.js').MTGJSON_BASE_URL
 const mtgGraphqlSearchUrl: string = require('../config/index.js').MTG_GRAPHQL_BASE_URL
+const mtgUserInfoBaseUrl: string = require('../config/index.js').MTG_USER_INFO_BASE_URL
 
 export const inBrowser = () => (typeof document !== 'undefined')
 
@@ -21,4 +22,5 @@ export const getRequestInit = (method: Method, headers?: Headers, body?: BodyIni
 }
 
 export const getBaseUrl = () => new URL('/',  mtgJsonUrl)
-export const getMtgGraphqlUrl = () => new URL('/', mtgGraphqlSearchUrl)
+export const getMtgGraphqlBaseUrl = () => new URL('/', mtgGraphqlSearchUrl)
+export const getMtgUserInfoBaseUrl = () => new URL('/', mtgUserInfoBaseUrl)

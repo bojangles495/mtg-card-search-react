@@ -6,6 +6,7 @@ import { StaticRouter } from 'react-router-dom/server'
 
 import { Routes } from '../../routes'
 import { ServerContext } from './ssr'
+import { SSRProvider } from 'react-bootstrap'
 
 interface AppProps {}
 
@@ -25,7 +26,9 @@ const Component: React.FunctionComponent<ComponentProps> = ({ config: { context 
   return (
     <Provider store={store}>
       <StaticRouter location={url}>
-        <App />
+        <SSRProvider>
+          <App />
+        </SSRProvider>
       </StaticRouter>
     </Provider>
   )
