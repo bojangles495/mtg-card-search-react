@@ -4,4 +4,3 @@ import { State } from '../helpers/createStore'
 const AppContainer = App.makeContainer((state: State) => ({ app: state.appState }))
 
 export { AppContainer }
-

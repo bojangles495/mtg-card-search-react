@@ -3,9 +3,10 @@ import { Map } from 'immutable'
 import { createLogger } from 'redux-logger'
 
 import * as App from './../components/app'
-import { LOCATION_CHANGE } from './../components/app/constants'
 import { toDeepImmutable } from './utils'
+import { LOCATION_CHANGE } from './../components/application-types/action-types/constants'
 
+//
 const reducer = combineReducers({ appState: App.reducer })
 
 export type State = ReturnType<typeof reducer>
