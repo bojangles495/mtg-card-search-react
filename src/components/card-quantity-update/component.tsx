@@ -9,10 +9,7 @@ interface CardQuantityUpdateProps  {
 }
 
 const Component: React.FunctionComponent<CardQuantityUpdateProps> = (props) => {
-  console.log("GOT IN THIS CARD QUANTITY UPDATE")
   const renderContent = (props: CardQuantityUpdateProps) => {
-    console.log("GOT IN THE RENDER CONTENT")
-
     return (
       <>
         <Form.Group className="">

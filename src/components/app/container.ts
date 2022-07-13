@@ -3,13 +3,16 @@ import { Dispatch, Store } from 'redux'
 import { List } from 'immutable'
 
 import { makeComponent } from './component'
-import { State, AppRouterProps } from './types'
+import { AppRouterProps } from './types'
 import { clearGraphQLCardSearchResult
 , getAppContentFailure
 , getAppContentStarted
 , getAppContentSuccess
-, queryCardSearch
-, setFormCardName} from './actions'
+, getCardInformationBySearch
+, setFormCardName
+, updateActiveCardBySet} from './actions'
+import { State } from '../application-types/state-types/types'
+import { ActiveCardBySet } from '../application-types/component-related-types/card-element-specific-types/types';
 
 export const makeConnector = <S>(mapStateToSlice: (state: S) => ({ app: State })) => {
   const mapStateToProps = (state: S, routerProps: AppRouterProps) => {
@@ -17,8 +20,7 @@ export const makeConnector = <S>(mapStateToSlice: (state: S) => ({ app: State })
 
     const props = { loading: slice.app.loading
       , form: slice.app.form
-      , cardSearchResult: slice.app.cardSearchResult
-      , userCatalogResult: slice.app.userCatalogResult
+      , cardSearchFormResults: slice.app.cardSearchFormResults
       }
 
     return props
@@ -28,8 +30,9 @@ export const makeConnector = <S>(mapStateToSlice: (state: S) => ({ app: State })
       clearGraphQLCardSearchResult: () => dispatch(clearGraphQLCardSearchResult())
     , getAppContentStarted: () => dispatch(getAppContentStarted())
     , getAppContentSuccess: () => dispatch(getAppContentSuccess())
-    , queryCardSearch: queryCardSearch(dispatch)
+    , getCardInformationBySearch: getCardInformationBySearch(dispatch)
     , setFormCardName: (formValue: string) => dispatch(setFormCardName(formValue))
+    , updateActiveCardBySet: (activeCardBySet: ActiveCardBySet) => dispatch(updateActiveCardBySet(activeCardBySet))
     }
   }
 
